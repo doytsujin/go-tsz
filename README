@@ -1,1 +1,4 @@
-godoc: https://godoc.org/github.com/dgryski/go-tsz
+This is a fork of dgryski/go-tsz which removes the 32bit timestamp encoding.  This version only encodes float64s using
+the method described in "Gorilla: A Fast, Scalable, In-Memory Time Series Database"
+
+See: http://www.vldb.org/pvldb/vol8/p1816-teller.pdf
