@@ -47,9 +47,7 @@ func (s *Series) Finish() {
 
 	if !s.finished {
 		// // write an end-of-stream record
-		// s.bw.WriteBits(0x0f, 4)
-		// s.bw.WriteBits(0xffffffff, 32)
-		// s.bw.WriteBit(bitstream.Zero)
+		s.Push(math.NaN())
 		s.bw.Flush(bitstream.Zero)
 		s.finished = true
 	}
@@ -184,7 +182,13 @@ func (it *Iter) Next() bool {
 		}
 		vbits := math.Float64bits(it.val)
 		vbits ^= (bits << it.trailing)
-		it.val = math.Float64frombits(vbits)
+
+		val := math.Float64frombits(vbits)
+		if math.IsNaN(val) {
+			it.finished = true
+			return false
+		}
+		it.val = val
 	}
 
 	return true

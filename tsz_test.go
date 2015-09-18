@@ -49,6 +49,10 @@ func TestExampleEncoding(t *testing.T) {
 		}
 	}
 
+	if it.Next() {
+		t.Fatalf("Next()=true, want false")
+	}
+
 	if err := it.Err(); err != nil {
 		t.Errorf("it.Err()=%v, want nil", err)
 	}
@@ -102,6 +106,10 @@ func TestRoundtrip(t *testing.T) {
 		if w.v != vv {
 			t.Errorf("Values()=(%v), want (%v)\n", vv, w.v)
 		}
+	}
+
+	if it.Next() {
+		t.Fatalf("Next()=true, want false")
 	}
 
 	if err := it.Err(); err != nil {
